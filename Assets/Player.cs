@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     public Text timeShadowText;
     private float timer;
 
+    public GameObject paw;
+
 	// Use this for initialization
 	void Start () {
         body = GetComponent<Rigidbody2D>();
@@ -122,7 +124,7 @@ public class Player : MonoBehaviour
             grounded = 1;
         }
 
-        if (collision.gameObject.GetComponent<Enemy>())
+        if (collision.gameObject.GetComponent<Enemy>() && Time.timeScale > 0.5f)
         {
             Time.timeScale = 0.2f;
 
@@ -130,6 +132,8 @@ public class Player : MonoBehaviour
             {
                 tramp.damping = 0.9f;
             }
+
+            Instantiate(paw, collision.contacts[0].point, paw.transform.rotation);
         }
     }
 
